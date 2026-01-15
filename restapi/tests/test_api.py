@@ -20,11 +20,10 @@ for route in app.routes:
 def test_validate_competency_questions(use_default_dataset, file_upload):
     data = {
         "validation_mode": "all",
-        "output_folder": "heatmaps",
         "use_default_dataset": str(use_default_dataset),
         "external_service_url": "http://127.0.0.1:8001/newapi",
         "api_key": "key",
-        "model": "gpt-4",
+        "model": os.getenv("OPENAI_MODEL", "gpt-4o-mini"),
         "save_results": "True"
     }
     files = {}
@@ -38,4 +37,3 @@ def test_validate_competency_questions(use_default_dataset, file_upload):
 
     print("Response JSON:", response.json())
     assert "validation_results" in json_data
-

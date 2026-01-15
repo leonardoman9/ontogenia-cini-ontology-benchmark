@@ -5,6 +5,9 @@ import logging
 from io import StringIO
 import os
 import requests
+from dotenv import load_dotenv
+load_dotenv()
+
 
 openai.api_key = os.getenv("OPENAI_API_KEY", "yourkey")
 logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -28,7 +31,7 @@ def generate_with_llm(
             import openai
             openai.api_key = os.getenv("OPENAI_API_KEY", "")
             response = openai.chat.completions.create(
-                model="gpt-4",
+                model=os.getenv("OPENAI_MODEL", "gpt-4o-mini"),
                 messages=[
                     {"role": "system", "content": "You are a competency question generation assistant."},
                     {"role": "user", "content": prompt}

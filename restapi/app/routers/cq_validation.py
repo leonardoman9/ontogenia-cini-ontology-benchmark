@@ -6,7 +6,7 @@ import os, time
 
 from app.services.cq_validator import CQValidator
 from app.utils.external_call import call_external_cq_generation_service
-from app.config import DEFAULT_DATASET, RESULTS_DIR
+from app.config import DEFAULT_DATASET, HEATMAP_OUTPUT_FOLDER, OPENAI_MODEL, RESULTS_DIR
 
 router = APIRouter()
 
@@ -14,11 +14,11 @@ router = APIRouter()
 async def validate_competency_questions(
     file: UploadFile = File(None),
     validation_mode: str = Form("all"),
-    output_folder: str = Form("heatmaps"),
+    output_folder: str = Form(HEATMAP_OUTPUT_FOLDER),
     use_default_dataset: bool = Form(False),
     external_service_url: str = Form(...),
     api_key: str = Form(None),
-    model: str = Form("gpt-4"),
+    model: str = Form(OPENAI_MODEL),
     save_results: bool = Form(True)
 ):
     """
@@ -98,4 +98,3 @@ async def validate_competency_questions(
         "results_saved_to": results_file if save_results else "Not saved",
         "validation_results": clean_nans(results)
     })
-

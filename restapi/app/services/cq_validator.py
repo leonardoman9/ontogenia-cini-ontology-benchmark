@@ -6,12 +6,12 @@ from sklearn.metrics.pairwise import cosine_similarity
 import openai
 
 from app.services.heatmap_generator import generate_heatmap, save_heatmap_image
-from app.config import OPENAI_API_KEY
+from app.config import OPENAI_API_KEY, OPENAI_MODEL
 
 openai.api_key = OPENAI_API_KEY
 
 class CQValidator:
-    def __init__(self, output_folder: str, model: str = "gpt-4", validation_mode: str = "all"):
+    def __init__(self, output_folder: str, model: str = OPENAI_MODEL, validation_mode: str = "all"):
         self.output_folder = output_folder
         self.model = model
         self.validation_mode = validation_mode
