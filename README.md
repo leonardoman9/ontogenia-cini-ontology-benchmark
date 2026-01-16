@@ -38,14 +38,31 @@ CQs are natural language questions used by ontology engineers to define and vali
 
 ## Configuration (.env)
 
-Create a `.env` file in the repo root (see `.env.example`) and set at least:
+Create a `.env` file in the repo root by copying the example:
 
+```bash
+cp .env.example .env
 ```
-OPENAI_API_KEY=...
-OPENAI_MODEL=gpt-4o-mini
-ONTOLOGY_SYSTEM=
-OOPS_API_URL="https://oops.linkeddata.es/api/1.2/assess"
+
+Then edit the values you need (see comments inside `.env.example`).
+
+Essentials:
+- `OPENAI_API_KEY` (required for any real run)
+- `OOPS_API_URL` is required only if you want OOPS enabled; leave empty to skip it
+
+Optional with defaults:
+- `OPENAI_MODEL` defaults to `gpt-4o-mini`
+- `EXTERNAL_CQ_GENERATION_URL` defaults to `http://127.0.0.1:8001/newapi`
+- `EXTERNAL_ONTOLOGY_SERVICE_URL` defaults to `http://127.0.0.1:8020/generate_ontology`
+- `ONTOLOGY_SYSTEM` defaults to `ontogenia`
+
+Activate the `.env` before running services:
+
+```bash
+source .env
 ```
+
+Most services also load `.env` automatically via `python-dotenv`, but exporting it explicitly keeps CLI runs consistent.
 
 
 ## Usage
